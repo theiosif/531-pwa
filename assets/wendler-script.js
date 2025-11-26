@@ -384,7 +384,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Calculate the new 1RM from the new training max
         // Training Max = 1RM * tmPercent, so 1RM = Training Max / tmPercent
-        const new1RM = roundWeight(newTM * tmPercent, roundTo);
+        const new1RM = roundWeight(newTM / tmPercent, roundTo);
         
         // Update the input field (this will trigger saveToLocalStorage)
         maxInput.value = new1RM;

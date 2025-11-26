@@ -1,0 +1,357 @@
+/* Additional Styles for Wendler 5/3/1 Calculator */
+
+/* Lift Input Styling */
+.lifts-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.lift-input {
+    margin-bottom: 10px;
+}
+
+/* Training Maxes Display */
+.training-maxes-container {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: var(--light-color);
+    border-radius: var(--border-radius);
+}
+
+.training-maxes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.training-max-item {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lift-name {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.training-max-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+}
+
+/* Tabs Styling */
+.tabs-container {
+    margin-bottom: 30px;
+}
+
+.tabs {
+    display: flex;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--primary-color);
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 1px;
+}
+
+.tab-btn {
+    background-color: #f1f1f1;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 5px;
+    cursor: pointer;
+    border-radius: 5px 5px 0 0;
+    font-weight: 600;
+    color: #666;
+    transition: all 0.3s;
+}
+
+.tab-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.tab-content {
+    background-color: white;
+    border-radius: 0 0 5px 5px;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+/* Accessory Templates */
+.accessory-container {
+    margin-bottom: 30px;
+}
+
+.accessory-tabs {
+    display: flex;
+    margin-bottom: 15px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.accessory-tab-btn {
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    padding: 8px 15px;
+    margin-right: 5px;
+    cursor: pointer;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #666;
+    transition: all 0.3s;
+}
+
+.accessory-tab-btn.active {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+}
+
+.accessory-pane {
+    display: none;
+    padding: 20px;
+    background-color: var(--light-color);
+    border-radius: var(--border-radius);
+}
+
+.accessory-pane.active {
+    display: block;
+}
+
+.accessory-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background-color: white;
+}
+
+.accessory-table th, .accessory-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.accessory-table th {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.accessory-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.accessory-note {
+    font-style: italic;
+    margin-top: 15px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Triumvirate Layout */
+.triumvirate-container {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.triumvirate-day {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: var(--shadow);
+}
+
+.triumvirate-day h4 {
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.triumvirate-day ul {
+    list-style-type: none;
+    padding-left: 5px;
+}
+
+.triumvirate-day li {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+/* Cycle Progression */
+.cycle-progression {
+    background-color: var(--light-color);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 30px;
+}
+
+.secondary-btn {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+}
+
+.secondary-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Highlight AMRAP sets */
+.amrap-set {
+    font-weight: 700;
+    color: var(--accent-color);
+}
+
+.amrap-note {
+    font-style: italic;
+    color: #555;
+}
+
+/* Responsive Adjustments */
+@media (min-width: 768px) {
+    .training-maxes-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .triumvirate-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+    .lifts-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .tabs {
+        flex-wrap: wrap;
+    }
+    
+    .tab-btn {
+        margin-bottom: 5px;
+    }
+    
+    .accessory-tabs {
+        flex-wrap: wrap;
+    }
+    
+    .accessory-tab-btn {
+        margin-bottom: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .training-maxes-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .lift-input {
+        margin-bottom: 15px;
+    }
+}
+
+/* Helper text and inline links */
+.helper-text {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: -10px;
+    margin-bottom: 15px;
+}
+
+.inline-link {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.inline-link:hover {
+    text-decoration: underline;
+}
+
+/* Embedded 1RM Calculator */
+.embedded-calculator-section {
+    background-color: var(--light-color);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    margin-bottom: 30px;
+    scroll-margin-top: 20px;
+}
+
+.embedded-calculator-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.section-intro {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.rm-results {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: var(--border-radius);
+    text-align: center;
+}
+
+.rm-result-box {
+    margin-bottom: 15px;
+}
+
+.rm-result-label {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.rm-result-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-color);
+}
+
+.use-1rm-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.lift-btn {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 480px) {
+    .use-1rm-buttons {
+        grid-template-columns: 1fr;
+    }
+}

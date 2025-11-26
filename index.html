@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2c3e50">
+    <title>Wendler 5/3/1 Program Calculator | Plan Your Strength Cycle</title>
+    <link rel="manifest" href="./manifest.json">
+    <meta name="description" content="Free Wendler 5/3/1 calculator to plan your strength training cycles. Calculate weights for all lifts based on your training maxes. Perfect for powerlifters and strength athletes.">
+    <meta name="keywords" content="wendler 5/3/1 calculator, 531 program, powerlifting calculator, strength training program, training max calculator, jim wendler">
+    <meta name="author" content="Strength Training Tools">
+    <link rel="stylesheet" href="./assets/styles.css">
+    <link rel="stylesheet" href="./assets/wendler-styles.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Wendler 5/3/1 Program Calculator",
+      "description": "A free calculator for Jim Wendler's 5/3/1 strength program used in powerlifting and strength training",
+      "applicationCategory": "Sports & Fitness",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Wendler 5/3/1 Program Calculator</h1>
+            <p class="subtitle">Plan your strength cycles with precision</p>
+        </header>
+
+        <div class="calculator-container">
+            <div class="form-section">
+                <h2>Input your lifts</h2>
+                
+                <div class="form-group">
+                    <label for="trainingMaxPercentage">Training Max Percentage:</label>
+                    <select id="trainingMaxPercentage">
+                        <option value="0.9">90% (Standard)</option>
+                        <option value="0.85">85% (Conservative)</option>
+                        <option value="0.95">95% (Advanced)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="unit">Unit:</label>
+                    <select id="unit">
+                        <option value="kg">Kilograms (kg)</option>
+                        <option value="lbs">Pounds (lbs)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="roundTo">Round weights to:</label>
+                    <select id="roundTo">
+                        <option value="2.5">2.5 kg/lbs</option>
+                        <option value="5">5 kg/lbs</option>
+                        <option value="1">1 kg/lbs</option>
+                    </select>
+                </div>
+                
+                <h3>Your One-Rep Maxes (1RM)</h3>
+                <p class="helper-text">Don't know your 1RM? <a href="#1rm-calculator-section" class="inline-link"> 🔗Use the 1RM Calculator</a></p>
+                
+                <div class="lifts-container">
+                    <div class="lift-input">
+                        <label for="squatMax">Squat 1RM:</label>
+                        <input type="number" id="squatMax" min="0" step="any" placeholder="e.g., 140">
+                    </div>
+                    
+                    <div class="lift-input">
+                        <label for="benchMax">Bench 1RM:</label>
+                        <input type="number" id="benchMax" min="0" step="any" placeholder="e.g., 100">
+                    </div>
+                    
+                    <div class="lift-input">
+                        <label for="deadliftMax">Deadlift 1RM:</label>
+                        <input type="number" id="deadliftMax" min="0" step="any" placeholder="e.g., 180">
+                    </div>
+                    
+                    <div class="lift-input">
+                        <label for="ohpMax">Overhead Press 1RM:</label>
+                        <input type="number" id="ohpMax" min="0" step="any" placeholder="e.g., 70">
+                    </div>
+                </div>
+                
+                <button id="calculateBtn">Calculate 5/3/1 Program</button>
+            </div>
+
+            <!-- Embedded 1RM Calculator Section -->
+            <div class="embedded-calculator-section" id="1rm-calculator-section">
+                <h2>1RM Calculator</h2>
+                <p class="section-intro">Calculate your one rep max from a recent lift</p>
+                
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="rm-weight">Weight lifted:</label>
+                        <input type="number" id="rm-weight" min="0" step="any" placeholder="e.g., 100">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="rm-reps">Reps completed:</label>
+                        <input type="number" id="rm-reps" min="1" max="15" step="1" placeholder="e.g., 5">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="rm-formula">Formula:</label>
+                        <select id="rm-formula">
+                            <option value="epley">Epley Formula (Recommended)</option>
+                            <option value="brzycki">Brzycki Formula</option>
+                            <option value="lander">Lander Formula</option>
+                            <option value="lombardi">Lombardi Formula</option>
+                            <option value="average">Average of All Formulas</option>
+                        </select>
+                    </div>
+                    
+                    <button id="calculate1RMBtn" class="secondary-btn">Calculate 1RM</button>
+                </div>
+                
+                <div class="rm-results hidden" id="rmResults">
+                    <div class="rm-result-box">
+                        <div class="rm-result-label">Estimated 1RM:</div>
+                        <div class="rm-result-value" id="rmResultValue">-</div>
+                    </div>
+                    <div class="use-1rm-buttons">
+                        <button id="useSquat1RMBtn" class="secondary-btn lift-btn">Set Squat 1RM</button>
+                        <button id="useBench1RMBtn" class="secondary-btn lift-btn">Set Bench 1RM</button>
+                        <button id="useDL1RMBtn" class="secondary-btn lift-btn">Set DL 1RM</button>
+                        <button id="useOHP1RMBtn" class="secondary-btn lift-btn">Set OHP 1RM</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-section" id="resultsSection">
+                <h2>Your Wendler 5/3/1 Program</h2>
+                
+                <div class="training-maxes-container">
+                    <h3>Your Training Maxes</h3>
+                    <div class="training-maxes-grid">
+                        <div class="training-max-item">
+                            <span class="lift-name">Squat</span>
+                            <span class="training-max-value" id="squatTM">-</span>
+                        </div>
+                        <div class="training-max-item">
+                            <span class="lift-name">Bench Press</span>
+                            <span class="training-max-value" id="benchTM">-</span>
+                        </div>
+                        <div class="training-max-item">
+                            <span class="lift-name">Deadlift</span>
+                            <span class="training-max-value" id="deadliftTM">-</span>
+                        </div>
+                        <div class="training-max-item">
+                            <span class="lift-name">Overhead Press</span>
+                            <span class="training-max-value" id="ohpTM">-</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tabs-container">
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="squatTab">Squat</button>
+                        <button class="tab-btn" data-tab="benchTab">Bench</button>
+                        <button class="tab-btn" data-tab="deadliftTab">Deadlift</button>
+                        <button class="tab-btn" data-tab="ohpTab">OHP</button>
+                    </div>
+                    
+                    <div class="tab-content">
+                        <div id="squatTab" class="tab-pane active">
+                            <div class="phase-container">
+                                <h3>Squat - 4 Week Cycle</h3>
+                                <div class="table-responsive">
+                                    <table id="squatTable" class="program-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Week</th>
+                                                <th>Set 1</th>
+                                                <th>Set 2</th>
+                                                <th>Set 3</th>
+                                                <th>AMRAP Set</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="benchTab" class="tab-pane">
+                            <div class="phase-container">
+                                <h3>Bench Press - 4 Week Cycle</h3>
+                                <div class="table-responsive">
+                                    <table id="benchTable" class="program-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Week</th>
+                                                <th>Set 1</th>
+                                                <th>Set 2</th>
+                                                <th>Set 3</th>
+                                                <th>AMRAP Set</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="deadliftTab" class="tab-pane">
+                            <div class="phase-container">
+                                <h3>Deadlift - 4 Week Cycle</h3>
+                                <div class="table-responsive">
+                                    <table id="deadliftTable" class="program-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Week</th>
+                                                <th>Set 1</th>
+                                                <th>Set 2</th>
+                                                <th>Set 3</th>
+                                                <th>AMRAP Set</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="ohpTab" class="tab-pane">
+                            <div class="phase-container">
+                                <h3>Overhead Press - 4 Week Cycle</h3>
+                                <div class="table-responsive">
+                                    <table id="ohpTable" class="program-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Week</th>
+                                                <th>Set 1</th>
+                                                <th>Set 2</th>
+                                                <th>Set 3</th>
+                                                <th>AMRAP Set</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accessory-container">
+                    <h3>Suggested Accessory Templates</h3>
+                    <div class="accessory-tabs">
+                        <button class="accessory-tab-btn active" data-accessory="boring">Boring But Big</button>
+                        <button class="accessory-tab-btn" data-accessory="triumvirate">Triumvirate</button>
+                        <button class="accessory-tab-btn" data-accessory="fsl">First Set Last</button>
+                    </div>
+                    
+                    <div class="accessory-content">
+                        <div id="boringContent" class="accessory-pane active">
+                            <p>Boring But Big is the most popular 5/3/1 accessory template. After your main 5/3/1 work:</p>
+                            <ul>
+                                <li><strong>5 sets of 10 reps</strong> of the same lift at <span id="boringPercentage">50-60%</span> of your Training Max</li>
+                                <li>2-3 assistance exercises for 3-4 sets of 8-12 reps (pull-ups, rows, abs, etc.)</li>
+                            </ul>
+                            
+                            <div class="table-responsive">
+                                <table id="boringTable" class="accessory-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Main Lift Day</th>
+                                            <th>BBB Exercise</th>
+                                            <th>BBB Weight</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div id="triumvirateContent" class="accessory-pane">
+                            <p>The Triumvirate uses 3 exercises per workout: your main lift plus two assistance exercises.</p>
+                            <div class="triumvirate-container">
+                                <div class="triumvirate-day">
+                                    <h4>Squat Day</h4>
+                                    <ul>
+                                        <li>Squat: 5/3/1</li>
+                                        <li>Leg Press: 5 sets of 10-15 reps</li>
+                                        <li>Leg Curl: 5 sets of 10-15 reps</li>
+                                    </ul>
+                                </div>
+                                <div class="triumvirate-day">
+                                    <h4>Bench Day</h4>
+                                    <ul>
+                                        <li>Bench Press: 5/3/1</li>
+                                        <li>Dumbbell Bench Press: 5 sets of 10-15 reps</li>
+                                        <li>Dumbbell Row: 5 sets of 10-15 reps</li>
+                                    </ul>
+                                </div>
+                                <div class="triumvirate-day">
+                                    <h4>Deadlift Day</h4>
+                                    <ul>
+                                        <li>Deadlift: 5/3/1</li>
+                                        <li>Good Morning: 5 sets of 10-15 reps</li>
+                                        <li>Hanging Leg Raise: 5 sets of 10-15 reps</li>
+                                    </ul>
+                                </div>
+                                <div class="triumvirate-day">
+                                    <h4>Press Day</h4>
+                                    <ul>
+                                        <li>Overhead Press: 5/3/1</li>
+                                        <li>Dip: 5 sets of 10-15 reps</li>
+                                        <li>Chin-up: 5 sets of 10-15 reps</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="fslContent" class="accessory-pane">
+                            <p>First Set Last (FSL) uses your first work set weight for 5 sets of 5-8 reps after your main 5/3/1 work.</p>
+                            <div class="table-responsive">
+                                <table id="fslTable" class="accessory-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Week</th>
+                                            <th>FSL Percentage</th>
+                                            <th>Squat</th>
+                                            <th>Bench</th>
+                                            <th>Deadlift</th>
+                                            <th>OHP</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Week 1</td>
+                                            <td>65%</td>
+                                            <td id="fslSquatW1">-</td>
+                                            <td id="fslBenchW1">-</td>
+                                            <td id="fslDeadliftW1">-</td>
+                                            <td id="fslOhpW1">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Week 2</td>
+                                            <td>70%</td>
+                                            <td id="fslSquatW2">-</td>
+                                            <td id="fslBenchW2">-</td>
+                                            <td id="fslDeadliftW2">-</td>
+                                            <td id="fslOhpW2">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Week 3</td>
+                                            <td>75%</td>
+                                            <td id="fslSquatW3">-</td>
+                                            <td id="fslBenchW3">-</td>
+                                            <td id="fslDeadliftW3">-</td>
+                                            <td id="fslOhpW3">-</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p class="accessory-note">Do 5 sets of 5-8 reps with these weights after your main 5/3/1 work. Add 2-3 assistance exercises for push, pull, and core/single-leg work.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cycle-progression">
+                    <h3>Next Cycle Progression</h3>
+                    <p>After completing a full 3-week cycle plus the deload week, increase your Training Max for the next cycle:</p>
+                    <ul>
+                        <li>Upper Body Lifts (Bench, OHP): <strong>+2.5kg/5lbs</strong></li>
+                        <li>Lower Body Lifts (Squat, Deadlift): <strong>+5kg/10lbs</strong></li>
+                    </ul>
+                    <button id="progressCycleBtn" class="secondary-btn">Calculate Next Cycle</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>About the Wendler 5/3/1 Program</h2>
+            
+            <div>
+                <p>The 5/3/1 program, created by strength coach Jim Wendler, is one of the most popular and effective strength training methodologies in the world. The program focuses on simplicity, sustainability, and steady progress through its unique percentage-based system and four main compound lifts: squat, bench press, deadlift, and overhead press.</p>
+                
+                <h3>Why Choose 5/3/1 for Strength Training?</h3>
+                <p>Unlike many programs that push for maximal effort every session, 5/3/1 uses submaximal training with an AMRAP (As Many Reps As Possible) set to drive progress. This approach allows for consistent improvement while minimizing burnout and injury risk. The program's flexibility with assistance work makes it adaptable for powerlifters, athletes, and general fitness enthusiasts alike.</p>
+                
+                <h3>Core 5/3/1 Program Structure</h3>
+                <div class="table-responsive">
+                    <table class="info-table">
+                        <thead>
+                            <tr>
+                                <th>Week</th>
+                                <th>Sets &amp; Reps</th>
+                                <th>Percentages</th>
+                                <th>Purpose</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Week 1</strong></td>
+                                <td>3 sets of 5 reps</td>
+                                <td>65%, 75%, 85%</td>
+                                <td>Volume foundation</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Week 2</strong></td>
+                                <td>3 sets of 3 reps</td>
+                                <td>70%, 80%, 90%</td>
+                                <td>Strength building</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Week 3</strong></td>
+                                <td>Sets of 5, 3, 1+ reps</td>
+                                <td>75%, 85%, 95%</td>
+                                <td>Peak intensity</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Week 4 (Deload)</strong></td>
+                                <td>3 sets of 5 reps</td>
+                                <td>40%, 50%, 60%</td>
+                                <td>Recovery</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Training Max vs. True Max</h3>
+                <p>A key concept in 5/3/1 is the Training Max (TM), which is typically 85-90% of your true one-rep max. All percentages in the program are based on this Training Max, not your absolute max. This built-in buffer allows for more sustainable progression and better technique development.</p>
+
+                <h3>The "Plus" Sets (+)</h3>
+                <p>The final set of each week is an AMRAP set (denoted by the "+" symbol), where you push for as many quality reps as possible. These sets drive progress and allow for autoregulation based on your day-to-day readiness. Wendler recommends stopping when form begins to break down, not when you physically cannot complete another rep.</p>
+
+                <h3>Popular 5/3/1 Variations</h3>
+                <ul>
+                    <li><strong>Boring But Big (BBB):</strong> Adds 5 sets of 10 reps at 50-60% TM after main work</li>
+                    <li><strong>First Set Last (FSL):</strong> Repeats the first working set for 5 sets of 5-8 reps</li>
+                    <li><strong>Joker Sets:</strong> Additional sets at 5-10% above your top set when feeling strong</li>
+                    <li><strong>5/3/1 Forever:</strong> Uses leader/anchor cycles and varied assistance templates</li>
+                    <li><strong>Building the Monolith:</strong> High-volume variation with challenging assistance work</li>
+                </ul>
+                
+                <div class="faq-section">
+                    <h3>Frequently Asked Questions About 5/3/1</h3>
+                    <div>
+                        <div>
+                            <h4>How quickly will I progress on 5/3/1?</h4>
+                            <div>
+                                <p>5/3/1 is designed for sustainable, long-term progress rather than rapid gains. You'll increase your Training Max by 5lbs/2.5kg for upper body lifts and 10lbs/5kg for lower body lifts each cycle (4 weeks). This translates to 60lbs/30kg for upper body and 120lbs/60kg for lower body per year if run consistently. Wendler emphasizes "slow cooking" over "microwaving" your strength gains.</p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4>Do I need to test my 1RM before starting?</h4>
+                            <div>
+                                <p>No, you don't need to test a true 1RM before starting. You can estimate your 1RM using a rep max calculator (weight × reps × 0.0333 + weight), or simply start with a weight you know you can lift for 3-5 clean reps and build from there. When in doubt, start lighter rather than heavier.</p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4>What assistance work should I do with 5/3/1?</h4>
+                            <div>
+                                <p>In his latest book "5/3/1 Forever," Wendler recommends a simple framework: 25-50 reps each of push, pull, and single-leg/core exercises per workout. The exact exercises can be chosen based on your goals, equipment availability, and preferences. Common choices include dips, rows, chin-ups, lunges, and ab work. The key is to keep assistance work as assistance—it shouldn't compromise recovery from your main lifts.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-disclaimer">
+                <p><strong>Disclaimer:</strong> Always consult with a qualified strength coach before starting any strength training program. This calculator is for informational purposes only. You are solely liable for any injuries, gains, or lack thereof.</p>
+            </div>
+        
+        <div class="copyright">
+            <p>All information based on publicly available resources.<br/>
+            Credits go to the respective authors.</p>
+        </div>
+        </div>
+    </footer>
+
+    <script src="./assets/wendler-script.js"></script>
+    
+    <script>
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registered:', registration);
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed:', err);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

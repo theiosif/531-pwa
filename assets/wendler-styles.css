@@ -204,6 +204,48 @@
     margin-bottom: 30px;
 }
 
+.progression-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.progression-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.progression-btn {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.progression-btn.decrement {
+    background-color: #95a5a6;
+}
+
+.progression-btn.increment {
+    background-color: var(--accent-color);
+}
+
+.progression-btn.decrement:hover {
+    background-color: #7f8c8d;
+}
+
+.progression-btn.increment:hover {
+    background-color: #c0392b;
+}
+
 .secondary-btn {
     background-color: var(--accent-color);
     color: white;
@@ -293,65 +335,4 @@
 
 .inline-link:hover {
     text-decoration: underline;
-}
-
-/* Embedded 1RM Calculator */
-.embedded-calculator-section {
-    background-color: var(--light-color);
-    padding: 25px;
-    border-radius: var(--border-radius);
-    margin-bottom: 30px;
-    scroll-margin-top: 20px;
-}
-
-.embedded-calculator-section h2 {
-    color: var(--primary-color);
-    margin-bottom: 10px;
-}
-
-.section-intro {
-    color: #666;
-    margin-bottom: 20px;
-}
-
-.rm-results {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: white;
-    border-radius: var(--border-radius);
-    text-align: center;
-}
-
-.rm-result-box {
-    margin-bottom: 15px;
-}
-
-.rm-result-label {
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 5px;
-}
-
-.rm-result-value {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--accent-color);
-}
-
-.use-1rm-buttons {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.lift-btn {
-    padding: 10px 15px;
-    font-size: 0.9rem;
-}
-
-@media (max-width: 480px) {
-    .use-1rm-buttons {
-        grid-template-columns: 1fr;
-    }
 }

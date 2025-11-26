@@ -369,8 +369,6 @@ footer {
     
     .form-section {
         display: block;
-        position: sticky;
-        top: 20px;
     }
     
     .results-section {
@@ -486,4 +484,54 @@ footer {
     font-size: 2rem;
     font-weight: 700;
     color: var(--accent-color);
+}
+
+/* Standalone 1RM Calculator Section */
+.standalone-calculator-section {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 30px;
+    margin-bottom: 40px;
+    scroll-margin-top: 20px;
+}
+
+.standalone-calculator-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-size: 2rem;
+}
+
+.standalone-calculator-section .section-intro {
+    color: #666;
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+}
+
+.calculator-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.standalone-calculator-section .rm-results {
+    max-width: 600px;
+    margin: 20px auto 0;
+}
+
+.use-1rm-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.lift-btn {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 480px) {
+    .use-1rm-buttons {
+        grid-template-columns: 1fr;
+    }
 }

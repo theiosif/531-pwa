@@ -92,50 +92,6 @@
                 <button id="calculateBtn">Calculate 5/3/1 Program</button>
             </div>
 
-            <!-- Embedded 1RM Calculator Section -->
-            <div class="embedded-calculator-section" id="1rm-calculator-section">
-                <h2>1RM Calculator</h2>
-                <p class="section-intro">Calculate your one rep max from a recent lift</p>
-                
-                <div class="form-section">
-                    <div class="form-group">
-                        <label for="rm-weight">Weight lifted:</label>
-                        <input type="number" id="rm-weight" min="0" step="any" placeholder="e.g., 100">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="rm-reps">Reps completed:</label>
-                        <input type="number" id="rm-reps" min="1" max="15" step="1" placeholder="e.g., 5">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="rm-formula">Formula:</label>
-                        <select id="rm-formula">
-                            <option value="epley">Epley Formula (Recommended)</option>
-                            <option value="brzycki">Brzycki Formula</option>
-                            <option value="lander">Lander Formula</option>
-                            <option value="lombardi">Lombardi Formula</option>
-                            <option value="average">Average of All Formulas</option>
-                        </select>
-                    </div>
-                    
-                    <button id="calculate1RMBtn" class="secondary-btn">Calculate 1RM</button>
-                </div>
-                
-                <div class="rm-results hidden" id="rmResults">
-                    <div class="rm-result-box">
-                        <div class="rm-result-label">Estimated 1RM:</div>
-                        <div class="rm-result-value" id="rmResultValue">-</div>
-                    </div>
-                    <div class="use-1rm-buttons">
-                        <button id="useSquat1RMBtn" class="secondary-btn lift-btn">Set Squat 1RM</button>
-                        <button id="useBench1RMBtn" class="secondary-btn lift-btn">Set Bench 1RM</button>
-                        <button id="useDL1RMBtn" class="secondary-btn lift-btn">Set DL 1RM</button>
-                        <button id="useOHP1RMBtn" class="secondary-btn lift-btn">Set OHP 1RM</button>
-                    </div>
-                </div>
-            </div>
-
             <div class="results-section" id="resultsSection">
                 <h2>Your Wendler 5/3/1 Program</h2>
                 
@@ -327,7 +283,7 @@
                                     <thead>
                                         <tr>
                                             <th>Week</th>
-                                            <th>FSL Percentage</th>
+                                            <th>FSL%</th>
                                             <th>Squat</th>
                                             <th>Bench</th>
                                             <th>Deadlift</th>
@@ -369,12 +325,29 @@
                 
                 <div class="cycle-progression">
                     <h3>Next Cycle Progression</h3>
-                    <p>After completing a full 3-week cycle plus the deload week, increase your Training Max for the next cycle:</p>
+                    <p>After completing a full 3-week cycle plus the deload week, adjust your Training Max for the next cycle:</p>
                     <ul>
                         <li>Upper Body Lifts (Bench, OHP): <strong>+2.5kg/5lbs</strong></li>
                         <li>Lower Body Lifts (Squat, Deadlift): <strong>+5kg/10lbs</strong></li>
                     </ul>
-                    <button id="progressCycleBtn" class="secondary-btn">Calculate Next Cycle</button>
+                    <div class="progression-buttons">
+                        <div class="progression-row">
+                            <button class="progression-btn decrement" data-lift="squat">Squat --</button>
+                            <button class="progression-btn increment" data-lift="squat">Squat ++</button>
+                        </div>
+                        <div class="progression-row">
+                            <button class="progression-btn decrement" data-lift="bench">Bench --</button>
+                            <button class="progression-btn increment" data-lift="bench">Bench ++</button>
+                        </div>
+                        <div class="progression-row">
+                            <button class="progression-btn decrement" data-lift="deadlift">Deadlift --</button>
+                            <button class="progression-btn increment" data-lift="deadlift">Deadlift ++</button>
+                        </div>
+                        <div class="progression-row">
+                            <button class="progression-btn decrement" data-lift="ohp">OHP --</button>
+                            <button class="progression-btn increment" data-lift="ohp">OHP ++</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -467,6 +440,50 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1RM Calculator Section -->
+        <div class="standalone-calculator-section" id="1rm-calculator-section">
+            <h2>1RM Calculator</h2>
+            <p class="section-intro">Calculate your one rep max from a recent lift</p>
+            
+            <div class="calculator-form">
+                <div class="form-group">
+                    <label for="rm-weight">Weight lifted:</label>
+                    <input type="number" id="rm-weight" min="0" step="any" placeholder="e.g., 100">
+                </div>
+                
+                <div class="form-group">
+                    <label for="rm-reps">Reps completed:</label>
+                    <input type="number" id="rm-reps" min="1" max="15" step="1" placeholder="e.g., 5">
+                </div>
+                
+                <div class="form-group">
+                    <label for="rm-formula">Formula:</label>
+                    <select id="rm-formula">
+                        <option value="epley">Epley Formula (Recommended)</option>
+                        <option value="brzycki">Brzycki Formula</option>
+                        <option value="lander">Lander Formula</option>
+                        <option value="lombardi">Lombardi Formula</option>
+                        <option value="average">Average of All Formulas</option>
+                    </select>
+                </div>
+                
+                <button id="calculate1RMBtn" class="secondary-btn">Calculate 1RM</button>
+            </div>
+            
+            <div class="rm-results hidden" id="rmResults">
+                <div class="rm-result-box">
+                    <div class="rm-result-label">Estimated 1RM:</div>
+                    <div class="rm-result-value" id="rmResultValue">-</div>
+                </div>
+                <div class="use-1rm-buttons">
+                    <button id="useSquat1RMBtn" class="secondary-btn lift-btn">Set Squat 1RM</button>
+                    <button id="useBench1RMBtn" class="secondary-btn lift-btn">Set Bench 1RM</button>
+                    <button id="useDL1RMBtn" class="secondary-btn lift-btn">Set DL 1RM</button>
+                    <button id="useOHP1RMBtn" class="secondary-btn lift-btn">Set OHP 1RM</button>
                 </div>
             </div>
         </div>

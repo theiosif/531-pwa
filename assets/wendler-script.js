@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const roundToSelect = document.getElementById('roundTo');
     const calculateBtn = document.getElementById('calculateBtn');
     const resultsSection = document.getElementById('resultsSection');
-    const progressCycleBtn = document.getElementById('progressCycleBtn');
     
     // Tables
     const squatTable = document.getElementById('squatTable').querySelector('tbody');
@@ -85,8 +84,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add click event to the calculate button
     calculateBtn.addEventListener('click', calculateProgram);
     
-    // Add click event to the progress cycle button
-    progressCycleBtn.addEventListener('click', progressCycle);
+    // Add click events to the progression buttons
+    document.querySelectorAll('.progression-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const lift = this.getAttribute('data-lift');
+            const isIncrement = this.classList.contains('increment');
+            adjustTrainingMax(lift, isIncrement);
+        });
+    });
     
     // LocalStorage functions for PWA persistence
     function saveToLocalStorage() {
@@ -325,6 +330,85 @@ document.addEventListener('DOMContentLoaded', function() {
         fslBenchW3.textContent = roundWeight(benchTM * 0.75, roundTo) + ' ' + unit;
         fslDeadliftW3.textContent = roundWeight(deadliftTM * 0.75, roundTo) + ' ' + unit;
         fslOhpW3.textContent = roundWeight(ohpTM * 0.75, roundTo) + ' ' + unit;
+    }
+    
+    function adjustTrainingMax(lift, isIncrement) {
+        const unit = unitSelect.value;
+        const roundTo = parseFloat(roundToSelect.value);
+        const tmPercent = parseFloat(tmPercentSelect.value);
+        
+        // Determine which lift and its elements
+        let tmSpan, table, maxInput;
+        let increment;
+        
+        switch(lift) {
+            case 'squat':
+                tmSpan = squatTMSpan;
+                table = squatTable;
+                maxInput = squatMaxInput;
+                increment = unit === 'kg' ? 5 : 10; // Lower body increment
+                break;
+            case 'bench':
+                tmSpan = benchTMSpan;
+                table = benchTable;
+                maxInput = benchMaxInput;
+                increment = unit === 'kg' ? 2.5 : 5; // Upper body increment
+                break;
+            case 'deadlift':
+                tmSpan = deadliftTMSpan;
+                table = deadliftTable;
+                maxInput = deadliftMaxInput;
+                increment = unit === 'kg' ? 5 : 10; // Lower body increment
+                break;
+            case 'ohp':
+                tmSpan = ohpTMSpan;
+                table = ohpTable;
+                maxInput = ohpMaxInput;
+                increment = unit === 'kg' ? 2.5 : 5; // Upper body increment
+                break;
+            default:
+                return;
+        }
+        
+        // Get current training max
+        const currentTM = parseFloat(tmSpan.textContent);
+        
+        if (isNaN(currentTM)) {
+            alert('Please calculate your current cycle first.');
+            return;
+        }
+        
+        // Calculate new training max
+        const change = isIncrement ? increment : -increment;
+        const newTM = roundWeight(currentTM + change, roundTo);
+        
+        // Calculate the new 1RM from the new training max
+        // Training Max = 1RM * tmPercent, so 1RM = Training Max / tmPercent
+        const new1RM = roundWeight(newTM * tmPercent, roundTo);
+        
+        // Update the input field (this will trigger saveToLocalStorage)
+        maxInput.value = new1RM;
+        
+        // Update training max display
+        tmSpan.textContent = `${newTM} ${unit}`;
+        
+        // Regenerate table for this lift
+        generateLifTable(table, newTM, unit, roundTo);
+        
+        // Get all current training maxes
+        const squatTM = parseFloat(squatTMSpan.textContent);
+        const benchTM = parseFloat(benchTMSpan.textContent);
+        const deadliftTM = parseFloat(deadliftTMSpan.textContent);
+        const ohpTM = parseFloat(ohpTMSpan.textContent);
+        
+        // Regenerate Boring But Big and FSL tables with all current values
+        if (!isNaN(squatTM) && !isNaN(benchTM) && !isNaN(deadliftTM) && !isNaN(ohpTM)) {
+            generateBoringButBigTable(squatTM, benchTM, deadliftTM, ohpTM, unit, roundTo);
+            generateFSLWeights(squatTM, benchTM, deadliftTM, ohpTM, unit, roundTo);
+        }
+        
+        // Save to localStorage
+        saveToLocalStorage();
     }
     
     function progressCycle() {
